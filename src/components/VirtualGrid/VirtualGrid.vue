@@ -27,11 +27,44 @@ const totalHeight = computed(() => {
   <div
     class="virtual-grid"
     ref="container"
+    :style="{ height: `${viewportHeight}px` }"
   >
-    <div class="virtual-grid__spacer">
-      <div class="virtual-grid__item"></div>
+    <div
+      class="virtual-grid__spacer"
+      :style="{ height: `${totalHeight}px` }"
+    >
+      <div class="virtual-grid__wrapper">
+        <div class="virtual-grid__item"></div>
+      </div>
     </div>
   </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.virtual-grid {
+  --border: 8px;
+
+  border-radius: var(--border);
+  overflow-y: auto;
+  background-color: darkcyan;
+
+  &__wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    border-radius: var(--border);
+  }
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (min-width: 1280px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+</style>
