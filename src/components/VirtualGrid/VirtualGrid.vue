@@ -1,5 +1,5 @@
 <script setup lang="ts" generic="T">
-import { useTemplateRef } from 'vue'
+import { computed, ref, useTemplateRef } from 'vue'
 
 const {
   viewportHeight = 500,
@@ -12,6 +12,15 @@ const {
 }>()
 
 const container = useTemplateRef('container')
+const scrollTop = ref<number>(0)
+const cols = ref<number>(2)
+const overflow = 2
+
+const totalHeight = computed(() => {
+  const rowsCount = Math.ceil(items.length / cols.value)
+
+  return rowsCount * itemHeight + overflow * cols.value
+})
 </script>
 
 <template>
