@@ -7,7 +7,7 @@ const toggleDark = useToggle(isDark)
 
 <template>
   <button
-    class="inline-flex place-items-center p-1"
+    class="inline-flex place-items-center p-1 cursor-pointer"
     @click="toggleDark()"
   >
     <Transition
