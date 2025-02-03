@@ -21,6 +21,23 @@ const totalHeight = computed(() => {
 
   return rowsCount * itemHeight + overflow * cols.value
 })
+const startIdx = computed(() => {
+  // прокрученную область делим на высоту элемента и умножаем на количество колонок
+  // чтобы учесть кейсы, когда прокручиваемых эл-ов несколько в строке
+  // и вычитаем так же верхние заполнители overflow
+
+  return Math.max(0, Math.floor(scrollTop.value / itemHeight) * cols.value - overflow)
+})
+const visibleCount = computed(() => {
+  const itemPerView = Math.ceil(viewportHeight / itemHeight) * cols.value
+
+  return itemPerView + 2 * (overflow * cols.value)
+})
+const visibleItems = computed(() => {
+  const endIdx = Math.min(items.length, startIdx.value + visibleCount.value)
+
+  return items.slice(startIdx.value, endIdx)
+})
 </script>
 
 <template>
